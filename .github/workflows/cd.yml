@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       image: ${{ steps.build-image.outputs.image }}
+      debug-stuff: "this is debug stuff"
     steps:
     - name: Check out code
       uses: actions/checkout@v4
