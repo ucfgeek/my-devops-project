@@ -4,6 +4,7 @@ on:
     branches: [ "main" ]
 env:
   AWS_REGION: us-east-1
+  ECR_REGISTRY: 375661828785.dkr.ecr.us-east-1.amazonaws.com/ericbrosch
   ECR_REPOSITORY: simple-flask-app
 jobs:
   build-and-push:
@@ -31,7 +32,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
     - name: Show image destination
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
       run: |
         echo "ECR registry: $ECR_REGISTRY"
         echo "ECR repository: $ECR_REPOSITORY"
@@ -39,7 +40,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REGISTRY: ${{ env.ECR_REGISTRY }}
         IMAGE_TAG: ${{ github.sha }}
       run: |
         docker build -f simple-flask-app/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG simple-flask-app
