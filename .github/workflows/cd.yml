@@ -59,4 +59,6 @@ jobs:
     - name: Terraform Init
       run: terraform -chdir=terraform init
     - name: Terraform Apply
-      run: terraform -chdir=terraform apply -auto-approve -var="ecr_image_identifier=${{ needs.build-and-push.outputs.image }}"
+      run: |
+        echo "Deploying image: ${{ needs.build-and-push.outputs.image }}"
+        terraform -chdir=terraform apply -auto-approve -var="ecr_image_identifier=${{ needs.build-and-push.outputs.image }}"
