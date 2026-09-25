@@ -46,7 +46,7 @@ jobs:
     needs: build-and-push
     steps:
     - name: Debug build output
-        run: |
+      run: |
             echo "Needs: ${{ toJSON(needs) }}"
     - name: Check out code
       uses: actions/checkout@v4
