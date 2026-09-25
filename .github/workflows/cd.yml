@@ -1,0 +1,16 @@
+name: Continuous Delivery
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+    AWS_REGION: us-east-1
+    ECR_REPOSITORY: simple-flask-app
+
+jobs:
+    build-and-push:
+        name: Build and Push Docker Image
+        runs-on: ubuntu-latest
+        outputs:
+            image: ${{ steps.build-image.outputs.image }}
