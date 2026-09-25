@@ -41,6 +41,9 @@ jobs:
         docker build -f simple-flask-app/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG simple-flask-app
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+    - name: Debug build output
+      run: |
+            echo "Step output: ${{ toJSON(steps) }}"
   deploy:
     name: Deploy to Staging
     runs-on: ubuntu-latest
